@@ -1,21 +1,33 @@
-import requests
+import os
+import json
+
+from test.test_reprlib import r
 
 import Auth
+import Excel
+import Github
 
-# url = 'https://api.github.com/events'
+data_path = "./data.json"
+token_path = "./.token"
+sheet_path = "./test.xlsx"
+token = ""
+settings = {}
 
-# org = ''
-# project_number = 2
-# proj = f'/orgs/{org}/projectsV2/{project_number}/items'
+if not os.path.exists(token_path):
+    Auth.login()
 
-# response = requests.get(url)
+with open(token_path, 'r') as file:
+    token = file.read()
 
-# if response.status_code == 200:
-#     print('foi meu querido')
-#     print(response.json())
-# else:
-#     print(f"failed with status: {response.status_code}")
+with open(data_path, 'r') as file:
+    obj = json.load(file)
+    settings = obj
 
+if not os.path.exists(sheet_path):
+    print("aaaaaaa")
+    Excel.verify_if_exists(settings, sheet_path)
 
-# Auth.request_device_code()
-Auth.login()
+for proj in settings['projects']:
+    issues = Github.get_project_items(proj['number'], token)
+    Excel.update_excel("./test.xlsx", proj['name'], issues)
+

@@ -1,0 +1,321 @@
+[
+    {
+        "id": 206751654,
+        "name": "Title",
+        "data_type": "title",
+        "created_at": "2025-07-11T12:25:21Z",
+        "updated_at": "2025-07-11T12:25:21Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSx6Y",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751655,
+        "name": "Assignees",
+        "data_type": "assignees",
+        "created_at": "2025-07-11T12:25:21Z",
+        "updated_at": "2025-07-11T12:25:21Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSx6c",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751656,
+        "name": "Status",
+        "data_type": "single_select",
+        "created_at": "2025-07-11T12:25:21Z",
+        "updated_at": "2025-08-27T17:32:41Z",
+        "node_id": "PVTSSF_lADOCmYWCc4A9p7IzgxSx6g",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8",
+        "options": [
+            {
+                "id": "f75ad846",
+                "name": {
+                    "raw": "Todo",
+                    "html": "Todo"
+                },
+                "description": {
+                    "raw": "This item hasn't been started",
+                    "html": "This item hasn't been started"
+                },
+                "color": "GREEN"
+            },
+            {
+                "id": "47fc9ee4",
+                "name": {
+                    "raw": "In Progress",
+                    "html": "In Progress"
+                },
+                "description": {
+                    "raw": "This is actively being worked on",
+                    "html": "This is actively being worked on"
+                },
+                "color": "YELLOW"
+            },
+            {
+                "id": "228c4a7f",
+                "name": {
+                    "raw": "Waiting",
+                    "html": "Waiting"
+                },
+                "description": {
+                    "raw": "Waiting pull request or sync with UseCase",
+                    "html": "Waiting pull request or sync with UseCase\n"
+                },
+                "color": "PINK"
+            },
+            {
+                "id": "98236657",
+                "name": {
+                    "raw": "Done",
+                    "html": "Done"
+                },
+                "description": {
+                    "raw": "This has been completed",
+                    "html": "This has been completed"
+                },
+                "color": "PURPLE"
+            }
+        ]
+    },
+    {
+        "id": 206751657,
+        "name": "Labels",
+        "data_type": "labels",
+        "created_at": "2025-07-11T12:25:21Z",
+        "updated_at": "2025-07-11T12:25:21Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSx6k",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751658,
+        "name": "Linked pull requests",
+        "data_type": "linked_pull_requests",
+        "created_at": "2025-07-11T12:25:21Z",
+        "updated_at": "2025-07-11T12:25:21Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSx6o",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751659,
+        "name": "Milestone",
+        "data_type": "milestone",
+        "created_at": "2025-07-11T12:25:21Z",
+        "updated_at": "2025-07-11T12:25:21Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSx6s",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751660,
+        "name": "Repository",
+        "data_type": "repository",
+        "created_at": "2025-07-11T12:25:21Z",
+        "updated_at": "2025-07-11T12:25:21Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSx6w",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751661,
+        "name": "Type",
+        "data_type": "issue_type",
+        "created_at": "2025-07-11T12:25:21Z",
+        "updated_at": "2025-07-11T12:25:21Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSx60",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751662,
+        "name": "Reviewers",
+        "data_type": "reviewers",
+        "created_at": "2025-07-11T12:25:21Z",
+        "updated_at": "2025-07-11T12:25:21Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSx64",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751663,
+        "name": "Parent issue",
+        "data_type": "parent_issue",
+        "created_at": "2025-07-11T12:25:21Z",
+        "updated_at": "2025-07-11T12:25:21Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSx68",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751664,
+        "name": "Sub-issues progress",
+        "data_type": "sub_issues_progress",
+        "created_at": "2025-07-11T12:25:21Z",
+        "updated_at": "2025-07-11T12:25:21Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSx7A",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751744,
+        "name": "Priority",
+        "data_type": "single_select",
+        "created_at": "2025-07-11T12:25:57Z",
+        "updated_at": "2025-07-11T12:25:57Z",
+        "node_id": "PVTSSF_lADOCmYWCc4A9p7IzgxSyAA",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8",
+        "options": [
+            {
+                "id": "3e8e855f",
+                "name": {
+                    "raw": "P0",
+                    "html": "P0"
+                },
+                "description": {
+                    "raw": "",
+                    "html": ""
+                },
+                "color": "RED"
+            },
+            {
+                "id": "91d5f731",
+                "name": {
+                    "raw": "P1",
+                    "html": "P1"
+                },
+                "description": {
+                    "raw": "",
+                    "html": ""
+                },
+                "color": "ORANGE"
+            },
+            {
+                "id": "3cd85c04",
+                "name": {
+                    "raw": "P2",
+                    "html": "P2"
+                },
+                "description": {
+                    "raw": "",
+                    "html": ""
+                },
+                "color": "YELLOW"
+            }
+        ]
+    },
+    {
+        "id": 206751745,
+        "name": "Size",
+        "data_type": "single_select",
+        "created_at": "2025-07-11T12:25:57Z",
+        "updated_at": "2025-07-11T12:25:57Z",
+        "node_id": "PVTSSF_lADOCmYWCc4A9p7IzgxSyAE",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8",
+        "options": [
+            {
+                "id": "dc0eb529",
+                "name": {
+                    "raw": "XS",
+                    "html": "XS"
+                },
+                "description": {
+                    "raw": "",
+                    "html": ""
+                },
+                "color": "GREEN"
+            },
+            {
+                "id": "f0821b72",
+                "name": {
+                    "raw": "S",
+                    "html": "S"
+                },
+                "description": {
+                    "raw": "",
+                    "html": ""
+                },
+                "color": "RED"
+            },
+            {
+                "id": "566b1bdc",
+                "name": {
+                    "raw": "M",
+                    "html": "M"
+                },
+                "description": {
+                    "raw": "",
+                    "html": ""
+                },
+                "color": "BLUE"
+            },
+            {
+                "id": "34e6bb5a",
+                "name": {
+                    "raw": "L",
+                    "html": "L"
+                },
+                "description": {
+                    "raw": "",
+                    "html": ""
+                },
+                "color": "PURPLE"
+            },
+            {
+                "id": "17781180",
+                "name": {
+                    "raw": "XL",
+                    "html": "XL"
+                },
+                "description": {
+                    "raw": "",
+                    "html": ""
+                },
+                "color": "YELLOW"
+            }
+        ]
+    },
+    {
+        "id": 206751746,
+        "name": "Estimate",
+        "data_type": "number",
+        "created_at": "2025-07-11T12:25:57Z",
+        "updated_at": "2025-07-11T12:25:57Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSyAI",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751747,
+        "name": "Iteration",
+        "data_type": "iteration",
+        "created_at": "2025-07-11T12:25:57Z",
+        "updated_at": "2025-07-23T08:42:57Z",
+        "node_id": "PVTIF_lADOCmYWCc4A9p7IzgxSyAM",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8",
+        "configuration": {
+            "start_day": 1,
+            "duration": 1,
+            "iterations": [
+                {
+                    "id": "10d37dde",
+                    "start_date": "2025-07-22",
+                    "duration": 1,
+                    "title": {
+                        "raw": "Iteration 1",
+                        "html": "Iteration 1"
+                    },
+                    "completed": true
+                }
+            ]
+        }
+    },
+    {
+        "id": 206751748,
+        "name": "Start date",
+        "data_type": "date",
+        "created_at": "2025-07-11T12:25:57Z",
+        "updated_at": "2025-07-11T12:25:57Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSyAQ",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    },
+    {
+        "id": 206751749,
+        "name": "End date",
+        "data_type": "date",
+        "created_at": "2025-07-11T12:25:57Z",
+        "updated_at": "2025-07-11T12:25:57Z",
+        "node_id": "PVTF_lADOCmYWCc4A9p7IzgxSyAU",
+        "project_url": "https://api.github.com/orgs/Engineering-Technical-School-Bosch-CWB/projectsV2/8"
+    }
+]
