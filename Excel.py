@@ -13,7 +13,6 @@ def update_excel(file:str, project: str, data: list[c.RequestProjectItemsRespons
         references_column = [references_column] if references_column is not None else []
 
     last_row = sheet.range('A' + str(sheet.cells.last_cell.row)).end('up').row
-    print(f"Debug last row: {last_row}")
     next = last_row + 1
 
     for item in data:
