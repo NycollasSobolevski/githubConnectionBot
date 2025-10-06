@@ -1,6 +1,7 @@
 from re import split
 import requests
 
+import Exceptions
 import Conversions
 import _secrets as s
 
@@ -51,6 +52,8 @@ def get(uri, token):
     response = requests.get(uri, headers=headers)
 
     if response.status_code != 200:
+        if response.status_code == 401: 
+            raise Exceptions.UnauthorizedError()
         raise Exception(f"Erro ao solicitar items do projeto\n {response.text}")
     
     data = Conversions.get_project_items_by_json(response.json())

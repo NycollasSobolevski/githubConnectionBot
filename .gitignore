@@ -3,3 +3,5 @@ _secrets.py
 ruby/_secrets.rb
 ruby/.token
 __pycache__
+_keys/*.pem
+installationToken.json
