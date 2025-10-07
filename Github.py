@@ -2,7 +2,7 @@ import requests
 
 import Exceptions
 import Conversions
-import secrets.GithubConnection.secrets as s
+import Secrets.GithubConnection.secrets as s
 
 def get_project_items(project_number: int, token: str) -> list[Conversions.RequestProjectItemsResponse]:
     uri = f"{s.GITHUB_API}/orgs/{s.ORGANIZATION}/projectsV2/{project_number}/items?"
