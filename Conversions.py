@@ -32,51 +32,49 @@ class RequestProjectItemsResponse:
         self.number = json["content"]['number']
         self.title = json["content"]['title']
         try:
-            self.status = json["fields"][2]['value']['name']['raw']
+            fields_by_name = {field['name']: field for field in json.get("fields", [])}
         except:
-            self.status = "Não planejado ainda"
+            fields_by_name = {}
 
-        try:
-            self.assignee = json["fields"][1]['value']['login']
-        except :
-            self.assignee = None
-        try:
-            self.labels = json["fields"][3]['values'][0]['name']
-        except :
-            self.labels = None
+        self.status = self._get_fields_(fields_by_name, ["Status", 'value', 'name', 'raw'], "Não planejado ainda")
+        self.assignee = self._get_fields_(fields_by_name, ["Assignees", 'value', 0,'login'])
+        self.labels = self._get_fields_(fields_by_name, ["Labels", 'value', 0, 'name'])
+        self.priority = self._get_fields_(fields_by_name, ["Priority", 'value', 'name', 'raw'])
+        self.estimate = self._get_fields_(fields_by_name, ["Estimate", 'value'])
 
-        try:
-            self.priority = json["fields"][4]['value']['name']['raw']
-        except :
-            self.priority = None
+        # Para os campos de data, podemos adicionar a conversão
+        start_date_str = self._get_fields_(fields_by_name, ["Start date", 'value'])
+        self.start_date = convertJsonToDate(start_date_str) if start_date_str else None
 
-        try:
-            self.estimate = json["fields"][5]['value']
-        except :
-            self.estimate = None
+        end_date_str = self._get_fields_(fields_by_name, ["End date", 'value'])
+        self.end_date = convertJsonToDate(end_date_str) if end_date_str else None
 
-        try:
-            jsonDate:str = json["fields"][6]['value']
-            self.start_date = convertJsonToDate(jsonDate)
-        except :
-            self.start_date = None
+        # O campo 'closed_at' parece estar fora de 'fields', então o buscamos diretamente
+        closed_at_str = self._get_fields_(json, ["content", 'closed_at'])
+        self.closed_at = convertJsonToDate(closed_at_str) if closed_at_str else None
 
-        try:
-            jsonDate = json["fields"][7]['value']
-            self.end_date = convertJsonToDate(jsonDate)
-        except :
-            self.end_date = None
-        try:
-            jsonDate = json["content"]['closed_at']
-            self.closed_at = convertJsonToDate(jsonDate)
-        except :
-            self.closed_at = None
-    
+  
+    def _get_fields_(self, data_dict, path, default = None):
+        current_level = data_dict
+        for key in path:
+            try:
+                current_level = current_level[key]
+            except:
+                return default
+        return current_level
 
-def convertJsonToDate(value: str) -> datetime.datetime:
-    formatString = ""
-    res = datetime.datetime.strptime(value, formatString)
-    return res
+def convertJsonToDate(value: str) -> datetime.datetime | None:
+    formatString = '%Y-%m-%dT%H:%M:%S%z'
+    if not value:
+        return None
+    try:
+        # Formato que corresponde a "2025-08-01T00:00:00+00:00"
+        formatString = '%Y-%m-%dT%H:%M:%S%z'
+        # O datetime.fromisoformat lida com isso de forma mais elegante (veja Solução 2)
+        return datetime.datetime.strptime(value, formatString)
+    except (ValueError, TypeError):
+        return None
+
 
 def getDateString(value: datetime.datetime):
     return f"{value.date}/{value.month}/{value.year}"

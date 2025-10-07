@@ -8,7 +8,9 @@ import jwt
 import _secrets as s
 import Conversions
 
+
 def login():
+    "This method focused on use personal token of user, where user have to do login on his account"
     data = request_device_code()
     print(f"Visit: {data.verification_uri}")
     print(f"Enter code: {data.user_code}")
@@ -18,6 +20,7 @@ def login():
     print("Successfully authenticated")
 
 def org_login():
+    "This method is focused on use an ORGANIZATION token, where must be generated directly on GitHub"
     save_installations()
     gen_installation_access_token()
 
@@ -30,7 +33,7 @@ def request_device_code() -> Conversions.RequestDeviceResponse :
 
     if(res.status_code != 200):
         print(f"error on make request: {res.text}")
-        return
+        raise Exception(f'Error on request Device Code. See following response:\n\n {res.text}')
 
     data = Conversions.RequestDeviceResponse(res.json())
 
