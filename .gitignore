@@ -6,3 +6,4 @@ __pycache__
 _keys/*.pem
 _keys/installationToken.json
 Secrets/
+venv/
