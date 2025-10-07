@@ -10,7 +10,7 @@ import Conversions as c
 def update_excel_by_df(file:str, project: str, data: list[c.RequestProjectItemsResponse]):
     table_data = [
         {
-            'number': item.number,
+            'id': item.number,
             'title': item.title,
             'status': item.status,
             'assignee': item.assignee,
@@ -35,7 +35,6 @@ def update_excel_by_df(file:str, project: str, data: list[c.RequestProjectItemsR
 
 
 @deprecated('This method is *DEPRECATED* and save item by item, if you want to save a list of items in workbook, use the update_excel_by_df method')
-
 def update_excel(file:str, project: str, data: list[c.RequestProjectItemsResponse]):
     workbook = xw.Book(file)
     sheet:xw.Sheet = workbook.sheets[project]
@@ -49,7 +48,6 @@ def update_excel(file:str, project: str, data: list[c.RequestProjectItemsRespons
     next = last_row + 1
 
     for item in data:
-
         if item.number in references_column:
             try:
                 ex_row = references_column.index(item.number) + 2
