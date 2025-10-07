@@ -6,10 +6,11 @@ import Auth
 import Excel
 import Github
 import Exceptions
+import Environment as e
 
 data_path = "./data.json"
-token_path = "./installationToken.json"
-sheet_path = "./test.xlsx"
+token_path = e.get_env("INSTALLATION_TOKEN_PATH")
+sheet_path = "./projectTasks.xlsx"
 token = ""
 settings = {}
 
@@ -48,5 +49,5 @@ for proj in settings['projects']:
         issues = Github.get_project_items(proj['number'], token)
 
     finally:
-        Excel.update_excel("./test.xlsx", proj['name'], issues)
+        Excel.update_excel_by_df("./test.xlsx", proj['name'], issues)
 

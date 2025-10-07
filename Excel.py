@@ -1,6 +1,40 @@
 import datetime
+from email import header
+from operator import index
+from typing_extensions import deprecated
 import xlwings as xw
+import pandas as pd
+
 import Conversions as c
+
+def update_excel_by_df(file:str, project: str, data: list[c.RequestProjectItemsResponse]):
+    table_data = [
+        {
+            'number': item.number,
+            'title': item.title,
+            'status': item.status,
+            'assignee': item.assignee,
+            'labels': item.labels,
+            'priority': item.priority,
+            'estimate': item.estimate,
+            'start_date': item.start_date,
+            'end_date': item.end_date,
+            'closed_at': item.closed_at,
+        }
+        for item in data
+    ]
+
+    df = pd.DataFrame(table_data)
+
+    workbook = xw.Book(file)
+    sheet: xw.Sheet = workbook.sheets[project]
+
+    sheet.range('A1').options(pd.DataFrame, header=True, index=True).value = df
+
+    workbook.save()
+
+
+@deprecated('This method is *DEPRECATED* and save item by item, if you want to save a list of items in workbook, use the update_excel_by_df method')
 
 def update_excel(file:str, project: str, data: list[c.RequestProjectItemsResponse]):
     workbook = xw.Book(file)
@@ -98,5 +132,5 @@ def verify_if_exists(settings, path):
     book.save(path)
     book.close()
     app.quit()
-    print("Arquivo 'meu_primeiro_arquivo.xlsx' criado com sucesso!")
+    print(f"Arquivo '{path}' criado com sucesso!")
 

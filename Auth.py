@@ -1,11 +1,12 @@
 import json
-import secrets
 import requests
 import sys
 import time
 import jwt
 
-import secrets.GithubConnection.secrets as s
+import Environment as e 
+import Exceptions
+import Secrets.GithubConnection.secrets as s
 import Conversions
 
 
@@ -39,7 +40,7 @@ def request_device_code() -> Conversions.RequestDeviceResponse :
 
     return data
 
-def request_token(device_info: Conversions.RequestDeviceResponse):
+def request_token(device_info: Conversions.RequestDeviceResponse)  -> Conversions.RequestTokenReponse :
     uri = "https://github.com/login/oauth/access_token"
     parameters = {
         "client_id": s.CLIENT_ID,
@@ -50,8 +51,7 @@ def request_token(device_info: Conversions.RequestDeviceResponse):
     res = requests.post(uri, params=parameters, headers=headers)
 
     if (res.status_code != 200):
-        print(f"Error on request token: {res.text}")
-        return
+        raise Exceptions.UnauthorizedError(f"Error on update personal token. See Request:\n\n {res.text}")
 
     data = Conversions.RequestTokenReponse(res.json())
     return data
@@ -82,14 +82,14 @@ def poll_for_token(deviceInfo: Conversions.RequestDeviceResponse):
             trying = False
 
     with open(".token", "w") as file:
-        file.write(response.access_token)
+        file.write(response.access_token) # type: ignore
     return
 
 #! ==================== NEW LOGIN ==========================
 
 def get_jwt_token() -> str:
     app_id = s.CLIENT_ID
-    key_path = './_keys/github_private_key.pem'
+    key_path = e.get_env('GITHUB_KEY_PATH')
     key = ''
 
     with open(key_path, 'r') as f:
@@ -106,7 +106,7 @@ def get_jwt_token() -> str:
 
 def gen_installation_access_token(installation_id=None, headers = {'Authorization': f'bearer {get_jwt_token()}'}):
     installations = []
-    with open('installationToken.json', 'r') as file:
+    with open(e.get_env("INSTALLATION_TOKEN_PATH"), 'r') as file:
         installations = json.loads(file.read())
     
     if installation_id == None:
@@ -133,7 +133,7 @@ def gen_installation_access_token(installation_id=None, headers = {'Authorizatio
             'token': f'{token}'
         })
     
-    with open('installationToken.json', 'w') as file:
+    with open(e.get_env("INSTALLATION_TOKEN_PATH"), 'w') as file:
         file.write(json.dumps(installations))
 
 def save_installations():
@@ -153,6 +153,6 @@ def save_installations():
             "token": ""
         })
 
-    with open("installationToken.json", "w") as file:
+    with open(e.get_env("INSTALLATION_TOKEN_PATH"), "w") as file:
         file.writelines(json.dumps(data))
 
