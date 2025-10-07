@@ -1,6 +1,5 @@
 import datetime
 import xlwings as xw
-import time
 import Conversions as c
 
 def update_excel(file:str, project: str, data: list[c.RequestProjectItemsResponse]):
@@ -29,7 +28,7 @@ def update_excel(file:str, project: str, data: list[c.RequestProjectItemsRespons
             next += 1
         sheet.autofit()
 
-        workbook.save()
+    workbook.save()
 
 def update_line(sheet:xw.Sheet, line: int, item: c.RequestProjectItemsResponse):
     sheet.cells(line, 4).value = 0
@@ -53,8 +52,17 @@ def add_line(sheet: xw.Sheet, next_row: int, item: c.RequestProjectItemsResponse
         sheet.cells(next_row, 8).value = item.start_date
         if(item.estimate != None):
             sheet.cells(next_row, 9).value = f"{item.start_date.day + item.estimate}/{item.start_date.month}/{item.start_date.year}"
-            estimate_date = datetime.datetime(item.start_date.year, item.start_date.month, item.start_date.day) + item.estimate
-            sheet.cells(next_row, 11).value = estimate_date < item.end_date if "Não" else "Sim"
+            estimate_date = datetime.datetime(
+                item.start_date.year, 
+                item.start_date.month, 
+                item.start_date.day, 
+                tzinfo=datetime.timezone.utc
+            ) + datetime.timedelta(days=item.estimate)
+
+
+            sheet.cells(next_row, 11).value = ("Sim" if estimate_date < item.end_date else "Não") if item.end_date is not None else "N/A"
+
+
     if(item.end_date != None):
         sheet.cells(next_row, 10).value = item.end_date
     

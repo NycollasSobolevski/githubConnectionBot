@@ -42,7 +42,7 @@ for proj in settings['projects']:
     try:
         issues = Github.get_project_items(proj['number'], token)
     except Exceptions.UnauthorizedError:
-        Auth.login()
+        Auth.org_login()
         with open(token_path, 'r') as file:
             token = file.read()
         issues = Github.get_project_items(proj['number'], token)

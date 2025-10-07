@@ -1,4 +1,3 @@
-from re import split
 import requests
 
 import Exceptions
@@ -41,8 +40,8 @@ def get_project_items(project_number: int, token: str) -> list[Conversions.Reque
     return data
 
 
-def get(uri, token):
-
+def get(uri, token) -> tuple[list[Conversions.RequestProjectItemsResponse], requests.Response]:
+    print(uri)
     headers = {
         "Accept": "application/vnd.github+json",
         "Authorization": f"Bearer {token}",
