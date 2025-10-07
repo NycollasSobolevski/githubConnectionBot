@@ -5,7 +5,7 @@ import sys
 import time
 import jwt
 
-import _secrets as s
+import secrets.GithubConnection.secrets as s
 import Conversions
 
 
