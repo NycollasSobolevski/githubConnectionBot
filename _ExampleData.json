@@ -1,0 +1,12 @@
+{
+    "projects":[
+        {
+            "name":"NomeDoProjeto",
+            "number": 0, // id do projeto
+            "sheetPath": "Path da planilha a ser salvo os dados",
+            "fields": [
+                "Ids dos fields a ser pesquisado" 
+            ]
+        }
+    ]
+}

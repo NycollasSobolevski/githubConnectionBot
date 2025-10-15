@@ -51,5 +51,5 @@ for proj in settings['projects']:
         issues = Github.get_project_items(proj, token)
 
     finally:
-        Excel.update_excel_by_df(sheet_path, proj['name'], issues)
+        Excel.update_excel_by_df(proj['sheetPath'], proj['name'], issues)
 

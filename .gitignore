@@ -8,3 +8,4 @@ _keys/installationToken.json
 Secrets/
 venv/
 *.xlsx
+data.json
