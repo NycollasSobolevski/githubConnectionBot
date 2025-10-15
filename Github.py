@@ -4,16 +4,13 @@ import Exceptions
 import Conversions
 import Secrets.GithubConnection.secrets as s
 
-def get_project_items(project_number: int, token: str) -> list[Conversions.RequestProjectItemsResponse]:
-    uri = f"{s.GITHUB_API}/orgs/{s.ORGANIZATION}/projectsV2/{project_number}/items?"
-    uri += "fields[]=206751654&" # Title  
-    uri += "fields[]=206751655&" # assignees
-    uri += "fields[]=206751656&" # status
-    uri += "fields[]=206751657&" # labels
-    uri += "fields[]=206751744&" # priority
-    uri += "fields[]=206751746&" # estimate
-    uri += "fields[]=206751748&" # start date
-    uri += "fields[]=206751749" # end date
+def get_project_items(project: dict, token: str) -> list[Conversions.RequestProjectItemsResponse]:
+    uri = f"{s.GITHUB_API}/orgs/{s.ORGANIZATION}/projectsV2/{project['number']}/items?"
+    for i in range(len(project['fields'])):
+        uri += f"fields[]={project['fields'][i]}"
+        if i < len(project['fields']):
+            uri += '&'
+
     uri += "&per_page=30"
 
     data, response = get(uri, token)

@@ -35,18 +35,20 @@ with open(data_path, 'r') as file:
     obj = json.load(file)
     settings = obj
 
-if not os.path.exists(sheet_path):
-    Excel.verify_if_exists(settings, sheet_path)
 
 for proj in settings['projects']:
+
+    if not os.path.exists(proj['sheetPath']):
+        Excel.verify_if_exists(proj)
+    
     issues = []
     try:
-        issues = Github.get_project_items(proj['number'], token)
+        issues = Github.get_project_items(proj, token)
     except Exceptions.UnauthorizedError:
         Auth.org_login()
         with open(token_path, 'r') as file:
             token = file.read()
-        issues = Github.get_project_items(proj['number'], token)
+        issues = Github.get_project_items(proj, token)
 
     finally:
         Excel.update_excel_by_df(sheet_path, proj['name'], issues)

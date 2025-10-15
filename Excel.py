@@ -1,3 +1,4 @@
+from concurrent.futures.thread import _WorkItem
 import datetime
 from email import header
 from operator import index
@@ -10,16 +11,16 @@ import Conversions as c
 def update_excel_by_df(file:str, project: str, data: list[c.RequestProjectItemsResponse]):
     table_data = [
         {
-            'id': item.number,
-            'title': item.title,
-            'status': item.status,
-            'assignee': item.assignee,
-            'labels': item.labels,
-            'priority': item.priority,
-            'estimate': item.estimate,
-            'start_date': item.start_date,
-            'end_date': item.end_date,
-            'closed_at': item.closed_at,
+            'Fase do Projeto': item.labels,
+            'Referencia': item.number,
+            'Atividade': item.title,
+            'Status': item.status,
+            'Responsável': item.assignee,
+            'Atividade Critica': item.priority,
+            'Duração': item.estimate,
+            'Início': item.start_date,
+            'Previsão': item.end_date,
+            'Entrega': item.closed_at.strftime("%d/%m/%Y") if item.closed_at is not None else "",
         }
         for item in data
     ]
@@ -27,17 +28,37 @@ def update_excel_by_df(file:str, project: str, data: list[c.RequestProjectItemsR
     df = pd.DataFrame(table_data)
 
     workbook = xw.Book(file)
-    sheet: xw.Sheet = workbook.sheets[project]
+    try:
+        sheet: xw.Sheet = workbook.sheets[project]
+    except:
+        workbook.sheets.add(project)
+        sheet: xw.Sheet = workbook.sheets[project]
+        
+    sheet.clear()
+    tablename = f"{project}Table"
+    sheet.range('A1').options(pd.DataFrame, header=True, index=False).value = df
 
-    sheet.range('A1').options(pd.DataFrame, header=True, index=True).value = df
+    n_rows = len(df.index) + 1
+    n_cols = len(df.columns)
 
+
+    data_range = sheet.range((1,1), (n_rows, n_cols))
+    try:
+        sheet.tables[tablename].delete()
+    except:
+        pass
+
+    sheet.tables.add(source=data_range , name=tablename)
+
+    sheet.autofit()
     workbook.save()
+    workbook.close()
 
 
 @deprecated('This method is *DEPRECATED* and save item by item, if you want to save a list of items in workbook, use the update_excel_by_df method')
 def update_excel(file:str, project: str, data: list[c.RequestProjectItemsResponse]):
     workbook = xw.Book(file)
-    sheet:xw.Sheet = workbook.sheets[project]
+    sheet: xw.Sheet = workbook.sheets[project]
 
     references_column = sheet.range("A2").expand('down').value
 
@@ -108,27 +129,26 @@ def find_issue(references, ref: str) -> tuple[bool, int | None]:
 
 
 
-def verify_if_exists(settings, path):
-    
+def verify_if_exists(project):
+    print(f'Project: {project['name']}\nNumber: {project['number']}\nPath: {project['sheetPath']}')
     app = xw.App(visible=False)
     book = xw.Book()
-    for project_name in settings['projects']:
-        book.sheets.add(project_name['name'])
-        sheet:xw.Sheet = book.sheets[project_name['name']]
-        sheet.cells(1, 1).value = "Fase do Projeto"
-        sheet.cells(1, 2).value = "Referencia"
-        sheet.cells(1, 3).value = "Atividade"
-        sheet.cells(1, 4).value = "Concluido"
-        sheet.cells(1, 5).value = "Critica"
-        sheet.cells(1, 6).value = "Responsável"
-        sheet.cells(1, 7).value = "Status"
-        sheet.cells(1, 8).value = "Inicio"
-        sheet.cells(1, 9).value = "Previsão"
-        sheet.cells(1, 10).value = "Entrega"
-        sheet.cells(1, 11).value = "Atraso"
-        print(f"Criado a planilha para: {project_name['name']}")
-    book.save(path)
+    book.sheets.add(project['name'])
+    sheet:xw.Sheet = book.sheets[project['name']]
+    sheet.cells(1, 1).value = "Fase do Projeto"
+    sheet.cells(1, 2).value = "Referencia"
+    sheet.cells(1, 3).value = "Atividade"
+    sheet.cells(1, 4).value = "Concluido"
+    sheet.cells(1, 5).value = "Critica"
+    sheet.cells(1, 6).value = "Responsável"
+    sheet.cells(1, 7).value = "Status"
+    sheet.cells(1, 8).value = "Inicio"
+    sheet.cells(1, 9).value = "Previsão"
+    sheet.cells(1, 10).value = "Entrega"
+    sheet.cells(1, 11).value = "Atraso"
+    print(f"Criado a planilha para: {project['name']}")
+    book.save(project['sheetPath'])
     book.close()
     app.quit()
-    print(f"Arquivo '{path}' criado com sucesso!")
+    print(f"Arquivo '{project['sheetPath']}' criado para {project['name']} com sucesso!")
 
